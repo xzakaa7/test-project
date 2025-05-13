@@ -81,7 +81,7 @@ class UsersResource extends Resource
                   Tables\Columns\BadgeColumn::make('roles.name')->colors([
                     'danger' => 'SuperAdmin',
                     'success' => 'admin',
-                    'primary' => 'petugas',
+                    'warning' => 'Petugas',
                 ])
                 
             ])
