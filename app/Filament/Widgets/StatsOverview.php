@@ -4,6 +4,7 @@ namespace App\Filament\Widgets;
 
 use App\Models\Pengguna;
 use App\Models\pengaduan;
+use App\Models\Suaramu;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Filament\Widgets\StatsOverviewWidget\Stat;
@@ -50,7 +51,9 @@ class StatsOverview extends BaseWidget
 
               ,
 
-              
+                Stat::make('Jumlah Saran Rakyat', Suaramu::count())
+                ->description('Semua Aspirasi Rakyat ')
+                ->color('info'),
         ];
     }
 }

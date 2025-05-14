@@ -10,8 +10,8 @@ use Carbon\Carbon;
 class PengaduanPerHariChart extends ChartWidget
 {
   //  protected static ?string $maxHeight = '300px';
-      protected int | string | array $columnSpan = 'full';
-    protected static ?string $heading = 'Grafik Pengaduan per Hari (30 Hari Terakhir)';
+      //protected int | string | array $columnSpan = 'full';
+    protected static ?string $heading = 'Grafik Jumlah Pengaduan per Hari (30 Hari Terakhir)';
 
     protected function getData(): array
     

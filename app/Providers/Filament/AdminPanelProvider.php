@@ -17,7 +17,9 @@ use App\Filament\Resources\UsersResource;
 use Filament\Http\Middleware\Authenticate;
 use App\Filament\Resources\PenggunaResource;
 use App\Filament\Resources\PengaduanResource;
+use App\Filament\Resources\SuaramuResource;
 use App\Filament\Widgets\PengaduanPerHariChart;
+use App\Models\Suaramu;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -44,6 +46,7 @@ class AdminPanelProvider extends PanelProvider
                 UsersResource::class,
                 PenggunaResource::class,
                 PengaduanResource::class,
+                SuaramuResource::class,
                 EventResource::class,
                 NewsResource::class
 
