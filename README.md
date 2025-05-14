@@ -39,16 +39,18 @@
 
 ## 🙌 Cara Ikutan
 
-1. Clone repo ini
-2. Tambah apa pun yang kamu suka
-3. Commit dengan gaya bebas
-4. Push dan bikin piramida makin tinggi 🔺
+1. Send Permession 
+2. Clone repo ini
+3. Tambah apa pun yang kamu suka
+4. Commit dengan gaya bebas
+5. Push dan bikin piramida makin tinggi 🔺
 
 ---
 
 ## 🧠 Catatan
 
 > Tidak semua percobaan berhasil, tapi semua percobaan itu berarti.
+> Ada ide kita gas tanpa ide kita gblok
 
 ---
 
