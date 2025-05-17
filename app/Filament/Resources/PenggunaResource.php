@@ -32,7 +32,7 @@ class PenggunaResource extends Resource
         return $form
             ->schema([
                 TextInput::make('nama'),
-                TextInput::make('email'), TextInput::make('password'), TextInput::make('no_hp'), TextInput::make('alamat'),
+                TextInput::make('email'), TextInput::make('password')->hiddenOn('view'), TextInput::make('no_hp'), TextInput::make('alamat'),
             ]);
     }
 

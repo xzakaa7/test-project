@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Pengguna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class PenggunaController extends Controller
 {
@@ -22,8 +25,47 @@ class PenggunaController extends Controller
 
 
         return response()->json([
-            'message' => 'Login berhasil',
-            'pengguna' => $pengguna
-        ]);
+           'status' => true,
+        'message' => 'Login berhasil',
+        'data' => [
+            'id' => $pengguna->id,
+            'nama' => $pengguna->nama,
+            'email' => $pengguna->email
+        ]
+    ], 200);
     }
+
+
+
+    public function register(Request $request)
+{
+    $validator = Validator::make($request->all(), [
+        'nama' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255|unique:pengguna,email',
+        'password' => 'required|string|min:6',
+        'no_hp' => 'required|string',
+        'alamat' => 'required|string',
+    ]);
+
+    // if ($validator->fails()) {
+    //     return response()->json([
+    //         'message' => 'Validation failed',
+    //         'errors' => $validator->errors()
+    //     ], 422);
+    // }
+
+    $user = Pengguna::create([
+        'nama' => $request->nama,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'no_hp' => $request->no_hp,
+        'alamat' => $request->alamat,
+    ]);
+
+    return response()->json([
+        'message' => 'User registered successfully',
+        'user' => $user
+    ], 201);
+}
+
 }

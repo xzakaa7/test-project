@@ -10,3 +10,5 @@ Route::get('/user', function (Request $request) {
 
 
 Route::post('/login', [PenggunaController::class, 'loginFlutter']);
+Route::post('/register', [PenggunaController::class, 'register']);
+
