@@ -67,8 +67,8 @@ class EventResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('judul'),
                 Tables\Columns\TextColumn::make('lokasi'),
-                Tables\Columns\TextColumn::make('waktu')->dateTime(),
-               ImageColumn::make('gambar'),
+            //    Tables\Columns\TextColumn::make('waktu')->dateTime(),
+            //    ImageColumn::make('gambar'),
 
                 BadgeColumn::make('status')
            ->label('Status Event')
@@ -116,6 +116,8 @@ class EventResource extends Resource
         ];
     }
 
+    
+
     public static function getPages(): array
     {
         return [
@@ -125,3 +127,5 @@ class EventResource extends Resource
         ];
     }
 }
+
+

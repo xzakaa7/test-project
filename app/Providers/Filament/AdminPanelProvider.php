@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Resources\DaruratResource;
 use Filament\Pages;
 use Filament\Panel;
 use App\Models\User;
@@ -46,6 +47,7 @@ class AdminPanelProvider extends PanelProvider
                 UsersResource::class,
                 PenggunaResource::class,
                 PengaduanResource::class,
+                DaruratResource::class,
                 SuaramuResource::class,
                 EventResource::class,
                 NewsResource::class

@@ -8,8 +8,10 @@ use Filament\Tables;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Illuminate\Support\HtmlString;
 use Filament\Forms\Components\Textarea;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Support\Facades\Storage;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
@@ -17,6 +19,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\NewsResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\NewsResource\RelationManagers;
+use Filament\Infolists\Infolist;
 
 class NewsResource extends Resource
 {
@@ -37,16 +40,13 @@ class NewsResource extends Resource
               
                 TextInput::make('penulis')->required()->label('Nama Penulis'),
                   Textarea::make('isi')->required()->label('Isi Berita')->rows(6),
-                FileUpload::make('image')
-                    ->label('Gambar')
-                    ->image()
-                    ->imagePreviewHeight('200')
-                 //   ->directory('news-images')
-                   // ->preserveFilenames()
-                    //->columnSpanFull()
-                     ->downloadable()
-                    // ->columnSpanFull()
-                    ->required(),
+               FileUpload::make('image') ->visible(fn (string $context) => in_array($context, [ 'edit','create']))
+    ->label('Gambar')
+    ->image()
+    ->imagePreviewHeight('200')
+    ->disk('public') // gunakan disk 'public' (sesuai config/filesystems.php)
+    ->directory('news') // ini berarti 'storage/app/public/news'
+    ->visibility('public') ->openable()
             ]);
     }
 
@@ -54,7 +54,7 @@ class NewsResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('image')->label('Gambar')->square(),
+                ImageColumn::make('image')->label('Gambar')->size(100),
                 TextColumn::make('judul')->sortable()->label('Judul'),
                 TextColumn::make('penulis')->label('Penulis')->sortable(),
                 TextColumn::make('created_at')->dateTime('d M Y')->label('Dibuat'),
@@ -65,14 +65,22 @@ class NewsResource extends Resource
                 //
             ])
             ->actions([
-                    Tables\Actions\ViewAction::make(),
+                   Tables\Actions\ViewAction::make()
+   
+    ->modalContent(fn ($record) => new HtmlString("
+        <div class='text-center'>
+            <p class='text-lg font-semibold mb-4'>Foto Berita</p>
+            <img src='" . Storage::url($record->image) . "' alt='image' class='mx-auto max-w-xs h-auto rounded shadow' />
+        </div>
+    ")),
+
                 Tables\Actions\EditAction::make(),
               
             ])
             ->bulkActions([
-                // Tables\Actions\BulkActionGroup::make([
-                //     Tables\Actions\DeleteBulkAction::make(),
-                // ]),
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
             ]);
     }
 
@@ -82,6 +90,11 @@ class NewsResource extends Resource
             //
         ];
     }
+
+    // public static function infolist(Infolist $infolist): Infolist
+    // {
+        
+    // }
 
     public static function getPages(): array
     {

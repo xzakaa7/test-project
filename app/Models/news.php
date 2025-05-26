@@ -20,5 +20,8 @@ class news extends Model
 
     public $timestamps = true;
     const UPDATED_AT = null; // hanya created_at yang digunakan
+
+
+    
 }
 
