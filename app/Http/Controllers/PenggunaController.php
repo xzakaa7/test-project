@@ -11,21 +11,23 @@ use Illuminate\Support\Facades\Validator;
 
 class PenggunaController extends Controller
 {
-     public function loginFlutter(Request $request)
-    {
-        $pengguna = DB::table('pengguna')->where('email', $request->email)->first();
+  public function loginFlutter(Request $request)
+{
+    $email = $request->input('email'); // gunakan input()
+    $password = $request->input('password'); // gunakan input()
 
-        if (!$pengguna) {
-            return response()->json(['message' => 'Email tidak ditemukan'], 404);
-        }
+    $pengguna = DB::table('pengguna')->where('email', $email)->first();
 
-       if (!Hash::check($request->password, $pengguna->password)) {
-    return response()->json(['message' => 'Password salah'], 401);
-}
+    if (!$pengguna) {
+        return response()->json(['message' => 'Email tidak ditemukan'], 404);
+    }
 
+    if (!Hash::check($password, $pengguna->password)) {
+        return response()->json(['message' => 'Password salah'], 401);
+    }
 
-        return response()->json([
-           'status' => true,
+    return response()->json([
+        'status' => true,
         'message' => 'Login berhasil',
         'data' => [
             'id' => $pengguna->id,
@@ -33,7 +35,7 @@ class PenggunaController extends Controller
             'email' => $pengguna->email
         ]
     ], 200);
-    }
+}
 
 
 
@@ -47,20 +49,16 @@ class PenggunaController extends Controller
         'alamat' => 'required|string',
     ]);
 
-    // if ($validator->fails()) {
-    //     return response()->json([
-    //         'message' => 'Validation failed',
-    //         'errors' => $validator->errors()
-    //     ], 422);
-    // }
+   
 
-    $user = Pengguna::create([
+        $user = Pengguna::create([
         'nama' => $request->nama,
         'email' => $request->email,
-        'password' => Hash::make($request->password),
+        'password' => $request->password, // ✅ CUKUP INI
         'no_hp' => $request->no_hp,
         'alamat' => $request->alamat,
     ]);
+
 
     return response()->json([
         'message' => 'User registered successfully',

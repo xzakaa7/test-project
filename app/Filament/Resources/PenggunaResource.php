@@ -58,7 +58,7 @@ class PenggunaResource extends Resource
                 Tables\Actions\ViewAction::make()->color('primary'),
             ])
             ->bulkActions([
-              
+              Tables\Actions\DeleteBulkAction::make(),
                   
             ]);
     }

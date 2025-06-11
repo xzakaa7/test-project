@@ -9,6 +9,7 @@ use App\Models\Pengaduan;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\PengaduanResource\Pages;
@@ -35,6 +36,15 @@ class PengaduanResource extends Resource
                 ->required(),
             Forms\Components\TextInput::make('judul')
                 ->required(),
+                Select::make('jenis_pengaduan')
+    ->label('Jenis Pengaduan')
+    ->required()
+    ->options([
+        'darurat' => 'Darurat',
+        'biasa' => 'Biasa',
+    ])
+    ->native(false) // agar pakai dropdown custom UI Filament, bukan default browser
+    ->default('biasa'),
         
        
             Forms\Components\TextInput::make('lokasi')
@@ -75,13 +85,24 @@ class PengaduanResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+        ->poll('30 s')
             ->columns([
                 Tables\Columns\TextColumn::make('pengguna.nama')->label('Nama Pelapor'),
                 Tables\Columns\TextColumn::make('judul')
                 ->label('🚨 Pengaduan'),
                 Tables\Columns\TextColumn::make('lokasi')
+                
                 //->verticallyAlignStart()
                 ->label('📍 Lokasi'),
+                TextColumn::make('jenis_pengaduan')
+                ->label('Jenis Pengaduan')
+                ->badge() // Untuk membuat tampilannya seperti label
+                ->color(fn (string $state): string => match ($state) {
+                'darurat' => 'danger', // merah
+                'biasa' => 'warning',  // kuning
+                 default => 'secondary',
+    })
+    ->formatStateUsing(fn (string $state) => ucfirst($state)),
           //     ImageColumn::make('foto'),
                 Tables\Columns\BadgeColumn::make('status')->colors([
                     'danger' => 'dikirim',
@@ -101,7 +122,7 @@ class PengaduanResource extends Resource
              
             ])
             ->bulkActions([
-            
+             Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
 public static function getNavigationBadge(): ?string

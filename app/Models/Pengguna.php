@@ -15,9 +15,19 @@ class Pengguna extends Model
 
     protected $fillable = ['nama', 'email', 'password', 'no_hp', 'alamat'];
 
+      protected $hidden = [
+        'password',
+    ];
+
     // Otomatis hash password saat diset
     public function setPasswordAttribute($value)
-    {
+{
+    // Jika sudah terhash (panjang dan mulai dengan $2y$), jangan hash ulang
+    if (strpos($value, '$2y$') === 0 && strlen($value) === 60) {
+        $this->attributes['password'] = $value;
+    } else {
         $this->attributes['password'] = Hash::make($value);
     }
+}
+
 }

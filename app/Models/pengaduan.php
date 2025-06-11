@@ -17,6 +17,7 @@ class pengaduan extends Model
         'deskripsi',
         'foto',
         'lokasi',
+        'jenis_pengaduan',
         'status',
     ];
 

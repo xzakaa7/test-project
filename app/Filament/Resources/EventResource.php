@@ -47,9 +47,9 @@ class EventResource extends Resource
    
            FileUpload::make('gambar')
                 ->image()
-                // ->directory('events')
-                // ->required(),
-                ,
+                 ->directory('events')
+                 ->required(),
+                
 
                 Forms\Components\Textarea::make('deskripsi')
                 ->required()
@@ -96,7 +96,7 @@ class EventResource extends Resource
             ])
             ->bulkActions([
              
-                  //  Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make(),
             
             ]);
     }
