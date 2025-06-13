@@ -17,7 +17,7 @@ const styles = {
   
   navLinks: `flex space-x-6 font-semibold`,
   
-  navLink: `hover:text-purple-500 transition`,
+  navLink: `hover:text-purple-500 transition bg-transparent border-none cursor-pointer font-semibold`,
   
   banner: `min-h-screen flex items-stretch bg-gradient-to-r from-blue-800 to-blue-500 text-white pt-20`,
   
@@ -39,6 +39,17 @@ const Banner = () => {
   const [featureRef, featureInView] = useInView();
   const [aboutRef, aboutInView] = useInView();
   const [ctaRef, ctaInView] = useInView();
+
+  // Add smooth scroll handler
+  const scrollToSection = (elementId) => {
+    const element = document.getElementById(elementId);
+    if (element) {
+      element.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -73,11 +84,47 @@ const Banner = () => {
         <div className={styles.navContent}>
           <div className={styles.logo}>🔔 Aspira</div>
           <ul className={styles.navLinks}>
-            <li><a href="#home" className={styles.navLink}>Home</a></li>
-            <li><a href="#about" className={styles.navLink}>Tentang</a></li>
-            <li><a href="#fitur" className={styles.navLink}>Fitur</a></li>
-            <li><a href="https://instagram.com/" target="_blank" className={styles.navLink}>Contact</a></li>
-            <li><a href="/admin/login" className={styles.navLink}>Login</a></li>
+            <li>
+              <button 
+                onClick={() => scrollToSection('home')}
+                className={styles.navLink}
+              >
+                Home
+              </button>
+            </li>
+            <li>
+              <button 
+                onClick={() => scrollToSection('about')}
+                className={styles.navLink}
+              >
+                Tentang
+              </button>
+            </li>
+            <li>
+              <button 
+                onClick={() => scrollToSection('fitur')}
+                className={styles.navLink}
+              >
+                Fitur
+              </button>
+            </li>
+            <li>
+              <a 
+                href="https://instagram.com/" 
+                target="_blank" 
+                className={styles.navLink}
+              >
+                Contact
+              </a>
+            </li>
+            <li>
+              <a 
+                href="/admin/login" 
+                className={styles.navLink}
+              >
+                Login
+              </a>
+            </li>
           </ul>
         </div>
       </nav>
