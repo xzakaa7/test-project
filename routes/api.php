@@ -21,4 +21,6 @@ Route::post('/pengaduan', [PengaduanController::class, 'store']);
 Route::get('/pengaduan/{pengguna_id}', [PengaduanController::class, 'riwayat']);
 Route::put('/pengaduan/{id}/status', [PengaduanController::class, 'updateStatus']);
 Route::post('/suaramu', [SuaramuController::class, 'store']);
+Route::get('/pengguna/{id}', [PenggunaController::class, 'show']);
+Route::post('/pengguna/update/{id}', [PenggunaController::class, 'update']);
 

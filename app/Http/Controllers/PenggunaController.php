@@ -38,6 +38,42 @@ class PenggunaController extends Controller
 }
 
 
+public function update(Request $request, $id)
+{
+    $pengguna = Pengguna::find($id);
+
+    if (!$pengguna) {
+        return response()->json(['message' => 'Pengguna tidak ditemukan'], 404);
+    }
+
+    $pengguna->nama = $request->nama;
+    $pengguna->email = $request->email;
+    $pengguna->no_hp = $request->no_hp;
+    $pengguna->alamat = $request->alamat;
+
+    if ($request->hasFile('foto')) {
+        $foto = $request->file('foto');
+        $filename = time() . '.' . $foto->getClientOriginalExtension();
+        $foto->move(public_path('foto_pengguna'), $filename);
+        $pengguna->foto = url('foto_pengguna/' . $filename);
+    }
+
+    $pengguna->save();
+
+    return response()->json($pengguna);
+}
+
+public function show($id)
+{
+    $pengguna = Pengguna::find($id);
+
+    if (!$pengguna) {
+        return response()->json(['message' => 'Pengguna tidak ditemukan'], 404);
+    }
+
+    return response()->json($pengguna);
+}
+
 
     public function register(Request $request)
 {
