@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import bannerImage from './banner.png';
 import { useInView } from './useInView';
 import { Settings, Globe, Smartphone, MessageCircle } from 'lucide-react';
@@ -62,6 +64,14 @@ const Banner = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: false,
+      mirror: true,
+      offset: 50,
+    });
+  }, []);
   
 const features = [
   { icon: <Settings size={36} />, title: 'Lapor Cepat' },
@@ -138,9 +148,9 @@ const features = [
       {/* Banner Section */}
       <section id="home" className={styles.banner}>
         <div className={styles.bannerContent}>
-          <div className={styles.bannerText}>
+          <div className={styles.bannerText} data-aos="fade-right" data-aos-duration="1000">
             <h1 className={styles.bannerTitle}>ASPIRA</h1>
-            <p className="text-lg leading-relaxed text-white">
+            <p className="text-lg leading-relaxed text-white" data-aos="fade-up" data-aos-delay="200">
               Aspira adalah aplikasi digital yang memudahkan masyarakat untuk menyampaikan aspirasi
               dan melaporkan permasalahan secara langsung kepada pihak terkait.
             </p>
@@ -152,29 +162,31 @@ const features = [
         </div>
       </section>
 
-      {/* Tentang Section */}
-     <section id="about" className="min-h-screen py-24 px-6 bg-white text-gray-800">
+      {/* About Section */}
+      <section id="about" className="min-h-screen py-24 px-6 bg-white text-gray-800">
   <div className="max-w-6xl mx-auto text-center">
-    <h2 className="text-4xl font-bold text-purple-700 mb-6">Tentang Aspira</h2>
-    <p className="text-lg leading-relaxed mb-6">
+    <h2 className="text-4xl font-bold text-purple-700 mb-6" data-aos="fade-down">
+      Tentang Aspira
+    </h2>
+    <p className="text-lg leading-relaxed mb-6" data-aos="fade-up" data-aos-delay="200">
       Aspira adalah aplikasi digital yang menjadi jembatan komunikasi antara masyarakat dan pemerintah.
       Melalui platform ini, warga dapat menyampaikan berbagai bentuk aspirasi — mulai dari kritik, saran, hingga laporan kejadian darurat — secara langsung, cepat, dan terdokumentasi dengan baik.
     </p>
-    <p className="text-lg leading-relaxed mb-6">
+    <p className="text-lg leading-relaxed mb-6" data-aos="fade-up" data-aos-delay="300">
       Dibangun dengan prinsip keterbukaan dan transparansi, Aspira memberikan kemudahan bagi masyarakat dalam melaporkan isu tanpa harus datang langsung ke kantor pelayanan.
       Pemerintah atau instansi terkait pun dapat memantau, merespon, dan menindaklanjuti laporan melalui dashboard interaktif dan data statistik yang akurat.
     </p>
-    <p className="text-lg leading-relaxed">
+    <p className="text-lg leading-relaxed" data-aos="fade-up" data-aos-delay="400">
       Dengan dukungan tampilan antarmuka yang ramah pengguna, responsif di berbagai perangkat, serta fitur pelaporan cepat dan sistem pelacakan status laporan, Aspira hadir sebagai solusi modern untuk pelayanan publik yang kolaboratif, transparan, dan efisien.
     </p>
   </div>
 
-
-
-  <section className="bg-gradient-to-br from-white via-gray-50 to-purple-50 py-20 px-6 text-gray-800">
-  <div className="max-w-6xl mx-auto text-center">
-    <h2 className="text-4xl font-bold text-purple-700 mb-10">Mengapa Pilih Aspira?</h2>
-    <div className="overflow-x-auto shadow-xl rounded-xl border border-gray-200 bg-white animate-fadeInUp">
+  {/* Comparison Table */}
+  <div className="max-w-6xl mx-auto text-center mt-20">
+    <h2 className="text-4xl font-bold text-purple-700 mb-10" data-aos="fade-up">
+      Mengapa Pilih Aspira?
+    </h2>
+    <div className="overflow-x-auto shadow-xl rounded-xl border border-gray-200 bg-white" data-aos="fade-up" data-aos-delay="200">
       <table className="table-auto w-full text-sm md:text-base border-collapse rounded-xl overflow-hidden">
         <thead>
           <tr className="bg-purple-100 text-purple-800 font-semibold">
@@ -229,29 +241,22 @@ const features = [
   </div>
 </section>
 
-</section>
-
-      {/* Features */}
+      {/* Features Section */}
 <section
   id="fitur"
   ref={featureRef}
-  className={`min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-white via-gray-50 to-gray-100 text-gray-800 px-6 py-20 transition-all duration-700 ease-out ${
-    featureInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-  }`}
+  className={`min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-white via-gray-50 to-gray-100 text-gray-800 px-6 py-20`}
 >
-  <h2 className="text-4xl font-bold text-purple-700 mb-6 text-center">Fitur & Keunggulan</h2>
-  <p className="max-w-2xl text-center mb-12 text-gray-600">
-    Berikut keunggulan Aspira yang menjadikannya solusi tepat dalam menyampaikan aspirasi dan pengaduan masyarakat:
-  </p>
-
+  <h2 className="text-4xl font-bold text-purple-700 mb-6 text-center" data-aos="fade-down">
+    Fitur & Keunggulan
+  </h2>
   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 w-full max-w-6xl">
     {features.map((feature, index) => (
       <div
         key={index}
-        className={`group flex flex-col items-center justify-center bg-white rounded-3xl p-8 h-64 shadow-md transform transition-all duration-500 ease-in-out hover:scale-105 hover:shadow-2xl ${
-          featureInView ? 'animate-fadeInUp opacity-100' : 'opacity-0'
-        }`}
-        style={{ animationDelay: `${index * 0.2}s`, animationFillMode: 'both' }}
+        data-aos="fade-up"
+        data-aos-delay={index * 200}
+        className="group flex flex-col items-center justify-center bg-white rounded-3xl p-8 h-64 shadow-md transform transition-all duration-500 hover:scale-105 hover:shadow-2xl"
       >
         <div className="bg-purple-100 group-hover:bg-purple-600 text-purple-600 group-hover:text-white transition-all duration-300 p-4 rounded-full mb-4">
           {feature.icon}
@@ -264,16 +269,18 @@ const features = [
   </div>
 </section>
 
-
-      {/* Testimoni */}
-    <section className="bg-white text-gray-800 py-28">
+{/* Testimonials Section */}
+<section className="bg-white text-gray-800 py-28">
   <div className="max-w-5xl mx-auto px-6 text-center">
-    <h2 className="text-3xl font-bold mb-14 text-purple-700">Apa Kata Mereka</h2>
-
+    <h2 className="text-3xl font-bold mb-14 text-purple-700" data-aos="fade-down">
+      Apa Kata Mereka
+    </h2>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
       {testimonials.map((item, index) => (
         <div
           key={index}
+          data-aos="fade-up"
+          data-aos-delay={index * 200}
           className="bg-gradient-to-br from-purple-100 via-white to-purple-50 p-8 rounded-2xl shadow-md border border-purple-200 hover:shadow-xl transition-all duration-300"
         >
           <div className="flex flex-col h-full justify-between">
@@ -297,22 +304,18 @@ const features = [
   </div>
 </section>
 
-
-   
-
-
-{/* Paket Section */}
+{/* Packages Section */}
 <section className="bg-gradient-to-br from-purple-50 to-blue-50 py-28 px-6 text-gray-800 overflow-hidden">
   <div className="max-w-6xl mx-auto text-center">
-    <h2 className="text-4xl font-bold text-purple-700 mb-6 animate-fadeInUp">Pilih Paket Aspira</h2>
-    <p className="mb-14 max-w-2xl mx-auto animate-fadeInUp delay-100">
-      Tersedia dua pilihan paket penggunaan aplikasi Aspira yang dapat disesuaikan dengan kebutuhan wilayah Anda.
-      Pilih dan mulai transformasi digital pelayanan masyarakat Anda!
-    </p>
-
+    <h2 className="text-4xl font-bold text-purple-700 mb-6" data-aos="fade-down">
+      Pilih Paket Aspira
+    </h2>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-      {/* Paket Kecamatan */}
-      <div className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center transform hover:-translate-y-1 hover:shadow-2xl transition duration-300 animate-fadeInUp">
+      <div 
+        className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center transform hover:-translate-y-1 hover:shadow-2xl transition duration-300"
+        data-aos="fade-right"
+        data-aos-delay="200"
+      >
         <h3 className="text-2xl font-bold text-purple-700 mb-3">Paket Kecamatan</h3>
         <p className="mb-4 text-gray-600 text-center">Cocok untuk wilayah skala kecamatan dengan fitur pelaporan dasar dan pengelolaan aspirasi warga.</p>
         <ul className="text-left mb-6 text-sm text-gray-700 space-y-2">
@@ -328,9 +331,11 @@ const features = [
           Pilih Paket
         </a>
       </div>
-
-      {/* Paket Kabupaten */}
-      <div className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center transform hover:-translate-y-1 hover:shadow-2xl transition duration-300 animate-fadeInUp delay-100">
+      <div 
+        className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center transform hover:-translate-y-1 hover:shadow-2xl transition duration-300"
+        data-aos="fade-left"
+        data-aos-delay="400"
+      >
         <h3 className="text-2xl font-bold text-purple-700 mb-3">Paket Kabupaten</h3>
         <p className="mb-4 text-gray-600 text-center">Solusi lengkap untuk skala besar dengan dukungan multi-instansi dan fitur lanjutan.</p>
         <ul className="text-left mb-6 text-sm text-gray-700 space-y-2">
