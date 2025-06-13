@@ -1,6 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import bannerImage from './banner.png';
-import { useInView } from './useInView'; // Hook animasi scroll
+import { useInView } from './useInView';
+
+// CSS-in-JS style
+const styles = {
+  wrapper: `w-full scroll-smooth`,
+  
+  navbar: (scrolled) => `
+    fixed top-0 left-0 w-full z-50 transition duration-300
+    ${scrolled ? 'bg-white text-gray-900 shadow' : 'bg-transparent text-white'}
+  `,
+  
+  navContent: `max-w-7xl mx-auto flex justify-between items-center px-6 py-4`,
+  
+  logo: `text-2xl font-bold`,
+  
+  navLinks: `flex space-x-6 font-semibold`,
+  
+  navLink: `hover:text-purple-500 transition`,
+  
+  banner: `min-h-screen flex items-stretch bg-gradient-to-r from-blue-800 to-blue-500 text-white pt-20`,
+  
+  bannerContent: `max-w-7xl mx-auto flex flex-col md:flex-row items-stretch px-6 w-full`,
+  
+  bannerText: `md:w-1/2 flex flex-col justify-center pr-4`,
+  
+  bannerTitle: `text-7xl md:text-8xl font-extrabold mb-6 text-white animate-fadeInUp transition-all duration-1000 ease-out hover:scale-105`,
+  
+  featureCard: `flex flex-col items-center bg-[#140f48] text-white p-6 rounded-xl hover:bg-purple-600 transition duration-300 cursor-pointer`,
+  
+  testimonialCard: `bg-gray-100 p-6 rounded-xl shadow hover:shadow-lg transition duration-300`,
+
+  footer: `text-center text-sm py-6 bg-gray-900 text-gray-400`,
+};
 
 const Banner = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -35,33 +67,31 @@ const Banner = () => {
   ];
 
   return (
-    <div className="w-full scroll-smooth">
+    <div className={styles.wrapper}>
       {/* Navbar */}
-      <nav className={`fixed top-0 left-0 w-full z-50 transition duration-300 ${scrolled ? 'bg-white text-gray-900 shadow' : 'bg-transparent text-white'}`}>
-        <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
-          <div className="text-2xl font-bold">🔔 Aspira</div>
-          <ul className="flex space-x-6 font-semibold">
-            <li><a href="#home" className="hover:text-purple-500 transition">Home</a></li>
-            <li><a href="#about" className="hover:text-purple-500 transition">Tentang</a></li>
-            <li><a href="#fitur" className="hover:text-purple-500 transition">Fitur</a></li>
-            <li><a href="https://instagram.com/" target="_blank" className="hover:text-purple-500 transition">Contact</a></li>
-            <li><a href="/admin/login" className="hover:text-purple-500 transition">Login</a></li>
+      <nav className={styles.navbar(scrolled)}>
+        <div className={styles.navContent}>
+          <div className={styles.logo}>🔔 Aspira</div>
+          <ul className={styles.navLinks}>
+            <li><a href="#home" className={styles.navLink}>Home</a></li>
+            <li><a href="#about" className={styles.navLink}>Tentang</a></li>
+            <li><a href="#fitur" className={styles.navLink}>Fitur</a></li>
+            <li><a href="https://instagram.com/" target="_blank" className={styles.navLink}>Contact</a></li>
+            <li><a href="/admin/login" className={styles.navLink}>Login</a></li>
           </ul>
         </div>
       </nav>
 
-      {/* Banner */}
-      <section id="home" className="min-h-screen flex items-stretch bg-gradient-to-r from-blue-800 to-blue-500 text-white pt-20">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-stretch px-6 w-full">
-         <div className="md:w-1/2 flex flex-col justify-center pr-4">
-  <h1 className="text-7xl md:text-8xl font-extrabold mb-6 text-white animate-fadeInUp transition-all duration-1000 ease-out hover:scale-105">
-    ASPIRA
-  </h1>
-  <p className="text-lg leading-relaxed text-white">
-    Aspira adalah aplikasi digital yang memudahkan masyarakat untuk menyampaikan aspirasi
-    dan melaporkan permasalahan secara langsung kepada pihak terkait.
-  </p>
-</div>
+      {/* Banner Section */}
+      <section id="home" className={styles.banner}>
+        <div className={styles.bannerContent}>
+          <div className={styles.bannerText}>
+            <h1 className={styles.bannerTitle}>ASPIRA</h1>
+            <p className="text-lg leading-relaxed text-white">
+              Aspira adalah aplikasi digital yang memudahkan masyarakat untuk menyampaikan aspirasi
+              dan melaporkan permasalahan secara langsung kepada pihak terkait.
+            </p>
+          </div>
 
           <div className="absolute top-0 right-0 w-1/2 h-full z-0">
             <img src={bannerImage} alt="Ilustrasi Aspira" className="w-full h-full object-cover" />
@@ -132,7 +162,7 @@ const Banner = () => {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 w-full max-w-5xl">
           {features.map((feature, index) => (
-            <div key={index} className="flex flex-col items-center bg-[#140f48] text-white p-6 rounded-xl hover:bg-purple-600 transition duration-300 cursor-pointer">
+            <div key={index} className={styles.featureCard}>
               <div className="text-5xl mb-4">{feature.icon}</div>
               <h3 className="text-lg font-bold text-center">{feature.title}</h3>
             </div>
@@ -146,7 +176,7 @@ const Banner = () => {
           <h2 className="text-3xl font-bold mb-8 text-purple-700">Apa Kata Mereka</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {testimonials.map((item, index) => (
-              <div key={index} className="bg-gray-100 p-6 rounded-xl shadow hover:shadow-lg transition duration-300">
+              <div key={index} className={styles.testimonialCard}>
                 <p className="italic">"{item.comment}"</p>
                 <div className="mt-4 font-bold text-purple-700">{item.name}</div>
               </div>
@@ -236,7 +266,7 @@ const Banner = () => {
 </a>
 
       {/* Footer */}
-      <footer className="text-center text-sm py-6 bg-gray-900 text-gray-400">
+      <footer className={styles.footer}>
         <div>© 2025 Aspira. All rights reserved.</div>
         <div>Developed with ❤️ by Tim Aspira</div>
       </footer>
