@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import bannerImage from './banner.png';
 import { useInView } from './useInView';
+import { Settings, Globe, Smartphone, MessageCircle } from 'lucide-react';
+
 
 // CSS-in-JS style
 const styles = {
@@ -23,7 +25,7 @@ const styles = {
   
   bannerContent: `max-w-7xl mx-auto flex flex-col md:flex-row items-stretch px-6 w-full`,
   
-  bannerText: `md:w-1/2 flex flex-col justify-center pr-4`,
+  bannerText: `md:w-1/2 flex flex-col justify-center px-8`,
   
   bannerTitle: `text-7xl md:text-8xl font-extrabold mb-6 text-white animate-fadeInUp transition-all duration-1000 ease-out hover:scale-105`,
   
@@ -33,6 +35,7 @@ const styles = {
 
   footer: `text-center text-sm py-6 bg-gray-900 text-gray-400`,
 };
+
 
 const Banner = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -59,12 +62,15 @@ const Banner = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const features = [
-    { icon: '⚙️', title: 'Lapor Cepat' },
-    { icon: '🌐', title: 'Responsif' },
-    { icon: '📱', title: 'User Friendly' },
-    { icon: '💬', title: 'Saling Terhubung' },
-  ];
+  
+const features = [
+  { icon: <Settings size={36} />, title: 'Lapor Cepat' },
+  { icon: <Globe size={36} />, title: 'Responsif' },
+  { icon: <Smartphone size={36} />, title: 'User Friendly' },
+  { icon: <MessageCircle size={36} />, title: 'Saling Terhubung' },
+];
+
+
 
   const testimonials = [
     {
@@ -165,33 +171,57 @@ const Banner = () => {
 
 
 
-  <section className="bg-white py-20 px-6 text-gray-800">
+  <section className="bg-gradient-to-br from-white via-gray-50 to-purple-50 py-20 px-6 text-gray-800">
   <div className="max-w-6xl mx-auto text-center">
-    <h2 className="text-3xl font-bold text-purple-700 mb-6">Mengapa Pilih Aspira?</h2>
-    <div className="overflow-x-auto">
-      <table className="table-auto border-collapse w-full text-sm">
+    <h2 className="text-4xl font-bold text-purple-700 mb-10">Mengapa Pilih Aspira?</h2>
+    <div className="overflow-x-auto shadow-xl rounded-xl border border-gray-200 bg-white animate-fadeInUp">
+      <table className="table-auto w-full text-sm md:text-base border-collapse rounded-xl overflow-hidden">
         <thead>
-          <tr className="bg-purple-100">
-            <th className="border px-4 py-2">Fitur</th>
-            <th className="border px-4 py-2">Aspira</th>
-            <th className="border px-4 py-2">Aplikasi Lain</th>
+          <tr className="bg-purple-100 text-purple-800 font-semibold">
+            <th className="px-6 py-4 text-left">Fitur</th>
+            <th className="px-6 py-4">Aspira</th>
+            <th className="px-6 py-4">Aplikasi Lain</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td className="border px-4 py-2 text-left">Pelaporan via WhatsApp</td>
-            <td className="border px-4 py-2 text-green-600">✔️</td>
-            <td className="border px-4 py-2 text-red-600">❌</td>
+          <tr className="hover:bg-gray-50 transition">
+            <td className="border-t px-6 py-4 text-left">Pelaporan via WhatsApp</td>
+            <td className="border-t px-6 py-4">
+              <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-green-100 text-green-700 rounded-full">
+                ✔ Tersedia
+              </span>
+            </td>
+            <td className="border-t px-6 py-4">
+              <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-red-100 text-red-700 rounded-full">
+                ✖ Tidak Ada
+              </span>
+            </td>
           </tr>
-          <tr className="bg-gray-50">
-            <td className="border px-4 py-2 text-left">Multi-instansi</td>
-            <td className="border px-4 py-2 text-green-600">✔️</td>
-            <td className="border px-4 py-2 text-yellow-600">⚠️</td>
+          <tr className="bg-gray-50 hover:bg-gray-100 transition">
+            <td className="border-t px-6 py-4 text-left">Multi-instansi</td>
+            <td className="border-t px-6 py-4">
+              <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-green-100 text-green-700 rounded-full">
+                ✔ Lengkap
+              </span>
+            </td>
+            <td className="border-t px-6 py-4">
+              <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-yellow-100 text-yellow-700 rounded-full">
+                ⚠ Terbatas
+              </span>
+            </td>
           </tr>
-          <tr>
-            <td className="border px-4 py-2 text-left">Tampilan modern</td>
-            <td className="border px-4 py-2 text-green-600">✔️</td>
-            <td className="border px-4 py-2 text-red-600">❌</td>
+          <tr className="hover:bg-gray-50 transition">
+            <td className="border-t px-6 py-4 text-left">Tampilan modern</td>
+            <td className="border-t px-6 py-4">
+              <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-green-100 text-green-700 rounded-full">
+                ✔ Stylish
+              </span>
+            </td>
+            <td className="border-t px-6 py-4">
+              <span className="inline-flex items-center px-2 py-1 text-xs font-medium bg-red-100 text-red-700 rounded-full">
+                ✖ Kuno
+              </span>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -202,52 +232,90 @@ const Banner = () => {
 </section>
 
       {/* Features */}
-      <section id="fitur" ref={featureRef} className={`min-h-screen flex flex-col justify-center items-center bg-gray-100 text-gray-800 px-6 py-20 transition-all duration-700 ${featureInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-        <h2 className="text-3xl font-bold text-purple-700 mb-4 text-center">Fitur & Keunggulan</h2>
-        <p className="max-w-2xl text-center mb-10">
-          Berikut keunggulan Aspira yang menjadikannya solusi tepat dalam menyampaikan aspirasi dan pengaduan masyarakat:
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 w-full max-w-5xl">
-          {features.map((feature, index) => (
-            <div key={index} className={styles.featureCard}>
-              <div className="text-5xl mb-4">{feature.icon}</div>
-              <h3 className="text-lg font-bold text-center">{feature.title}</h3>
-            </div>
-          ))}
+<section
+  id="fitur"
+  ref={featureRef}
+  className={`min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-white via-gray-50 to-gray-100 text-gray-800 px-6 py-20 transition-all duration-700 ease-out ${
+    featureInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+  }`}
+>
+  <h2 className="text-4xl font-bold text-purple-700 mb-6 text-center">Fitur & Keunggulan</h2>
+  <p className="max-w-2xl text-center mb-12 text-gray-600">
+    Berikut keunggulan Aspira yang menjadikannya solusi tepat dalam menyampaikan aspirasi dan pengaduan masyarakat:
+  </p>
+
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 w-full max-w-6xl">
+    {features.map((feature, index) => (
+      <div
+        key={index}
+        className={`group flex flex-col items-center justify-center bg-white rounded-3xl p-8 h-64 shadow-md transform transition-all duration-500 ease-in-out hover:scale-105 hover:shadow-2xl ${
+          featureInView ? 'animate-fadeInUp opacity-100' : 'opacity-0'
+        }`}
+        style={{ animationDelay: `${index * 0.2}s`, animationFillMode: 'both' }}
+      >
+        <div className="bg-purple-100 group-hover:bg-purple-600 text-purple-600 group-hover:text-white transition-all duration-300 p-4 rounded-full mb-4">
+          {feature.icon}
         </div>
-      </section>
+        <h3 className="text-xl font-semibold text-center text-gray-800 group-hover:text-purple-800 transition-all duration-300">
+          {feature.title}
+        </h3>
+      </div>
+    ))}
+  </div>
+</section>
+
 
       {/* Testimoni */}
-      <section className="bg-white text-gray-800 py-20">
-        <div className="max-w-5xl mx-auto text-center px-6">
-          <h2 className="text-3xl font-bold mb-8 text-purple-700">Apa Kata Mereka</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {testimonials.map((item, index) => (
-              <div key={index} className={styles.testimonialCard}>
-                <p className="italic">"{item.comment}"</p>
-                <div className="mt-4 font-bold text-purple-700">{item.name}</div>
-              </div>
-            ))}
+    <section className="bg-white text-gray-800 py-28">
+  <div className="max-w-5xl mx-auto px-6 text-center">
+    <h2 className="text-3xl font-bold mb-14 text-purple-700">Apa Kata Mereka</h2>
+
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+      {testimonials.map((item, index) => (
+        <div
+          key={index}
+          className="bg-gradient-to-br from-purple-100 via-white to-purple-50 p-8 rounded-2xl shadow-md border border-purple-200 hover:shadow-xl transition-all duration-300"
+        >
+          <div className="flex flex-col h-full justify-between">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-8 h-8 text-purple-500 mb-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h.01M15 12h.01M12 16.01h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9a9 9 0 0118 0z" />
+            </svg>
+            <p className="text-base italic text-gray-700 mb-6 leading-relaxed">
+              "{item.comment}"
+            </p>
+            <div className="text-sm font-semibold text-purple-700">{item.name}</div>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
+
 
    
 
 
 {/* Paket Section */}
-<section className="bg-gray-50 py-24 px-6 text-gray-800">
+<section className="bg-gradient-to-br from-purple-50 to-blue-50 py-28 px-6 text-gray-800 overflow-hidden">
   <div className="max-w-6xl mx-auto text-center">
-    <h2 className="text-4xl font-bold text-purple-700 mb-4">Pilih Paket Aspira</h2>
-    <p className="mb-12 max-w-2xl mx-auto">
-      Tersedia dua pilihan paket penggunaan aplikasi Aspira yang dapat disesuaikan dengan kebutuhan wilayah Anda. Pilih dan mulai transformasi digital pelayanan masyarakat Anda!
+    <h2 className="text-4xl font-bold text-purple-700 mb-6 animate-fadeInUp">Pilih Paket Aspira</h2>
+    <p className="mb-14 max-w-2xl mx-auto animate-fadeInUp delay-100">
+      Tersedia dua pilihan paket penggunaan aplikasi Aspira yang dapat disesuaikan dengan kebutuhan wilayah Anda.
+      Pilih dan mulai transformasi digital pelayanan masyarakat Anda!
     </p>
+
     <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
       {/* Paket Kecamatan */}
-      <div className="bg-white rounded-xl shadow-lg p-8 flex flex-col items-center hover:shadow-xl transition">
-        <h3 className="text-2xl font-bold text-purple-700 mb-2">Paket Kecamatan</h3>
-        <p className="mb-4 text-gray-600">Cocok untuk wilayah skala kecamatan dengan fitur pelaporan dasar dan pengelolaan aspirasi warga.</p>
-        <ul className="text-left mb-6 text-sm text-gray-700">
+      <div className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center transform hover:-translate-y-1 hover:shadow-2xl transition duration-300 animate-fadeInUp">
+        <h3 className="text-2xl font-bold text-purple-700 mb-3">Paket Kecamatan</h3>
+        <p className="mb-4 text-gray-600 text-center">Cocok untuk wilayah skala kecamatan dengan fitur pelaporan dasar dan pengelolaan aspirasi warga.</p>
+        <ul className="text-left mb-6 text-sm text-gray-700 space-y-2">
           <li>✅ Pelaporan Warga</li>
           <li>✅ Dashboard Petugas</li>
           <li>✅ Statistik Laporan</li>
@@ -262,10 +330,10 @@ const Banner = () => {
       </div>
 
       {/* Paket Kabupaten */}
-      <div className="bg-white rounded-xl shadow-lg p-8 flex flex-col items-center hover:shadow-xl transition">
-        <h3 className="text-2xl font-bold text-purple-700 mb-2">Paket Kabupaten</h3>
-        <p className="mb-4 text-gray-600">Solusi lengkap untuk skala besar dengan dukungan multi-instansi dan fitur lanjutan.</p>
-        <ul className="text-left mb-6 text-sm text-gray-700">
+      <div className="bg-white rounded-2xl shadow-lg p-8 flex flex-col items-center transform hover:-translate-y-1 hover:shadow-2xl transition duration-300 animate-fadeInUp delay-100">
+        <h3 className="text-2xl font-bold text-purple-700 mb-3">Paket Kabupaten</h3>
+        <p className="mb-4 text-gray-600 text-center">Solusi lengkap untuk skala besar dengan dukungan multi-instansi dan fitur lanjutan.</p>
+        <ul className="text-left mb-6 text-sm text-gray-700 space-y-2">
           <li>✅ Semua Fitur Paket Kecamatan</li>
           <li>✅ Multi-Role (Admin, Petugas, Operator)</li>
           <li>✅ Integrasi dengan WhatsApp</li>
